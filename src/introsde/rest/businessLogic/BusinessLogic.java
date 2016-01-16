@@ -150,7 +150,7 @@ public class BusinessLogic {
 
 
          for(int i = 0; i < o2.getJSONArray("lifeStatus").length(); i++){
-             if(o2.getJSONArray("lifeStatus").getJSONObject(i).getString("measure").equals(measure)){
+             if(o2.getJSONArray("lifeStatus").getJSONObject(i).getString("measureName").equals(measure)){
                  lifeStatusValue = o2.getJSONArray("lifeStatus").getJSONObject(i).getInt("value");
              }
          }
@@ -158,6 +158,7 @@ public class BusinessLogic {
          // c) Comparing the measures of goals and lifestatus
 
          if(lifeStatusValue == -1 || goalValue == -1){
+
              return Response.status(404).build();
          }
 
