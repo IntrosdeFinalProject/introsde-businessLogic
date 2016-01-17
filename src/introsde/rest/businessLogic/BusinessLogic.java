@@ -150,7 +150,7 @@ public class BusinessLogic {
 
 
          for(int i = 0; i < o2.getJSONArray("lifeStatus").length(); i++){
-             if(o2.getJSONArray("lifeStatus").getJSONObject(i).getString("measureName").equals(measure)){
+             if(o2.getJSONArray("lifeStatus").getJSONObject(i).getString("measure").equals(measure)){
                  lifeStatusValue = o2.getJSONArray("lifeStatus").getJSONObject(i).getInt("value");
              }
          }
@@ -163,14 +163,24 @@ public class BusinessLogic {
          }
 
          if(lifeStatusValue >= goalValue){
-             comparison = "1";
+             comparison = "ok";
          }else{
-             comparison = "2";
+             comparison = "notOk";
          }
 
-
-         return Response.ok(comparison).build();
-
-     }
+         String textXml = "";
+        textXml = "<comparisonInfo>";
+        textXml += "<measure>"+measure+"</measure>";
+        textXml += "<lifeStatusValue>"+lifeStatusValue+"</lifeStatusValue>";
+        textXml += "<goalValue>"+goalValue+"</goalValue>";
+        textXml += "<result>"+comparison+"</result>";
+        textXml += "</comparisonInfo>";
+        
+        JSONObject xmlJSONObj = XML.toJSONObject(textXml);
+        String jsonPrettyPrintString = xmlJSONObj.toString(4);
+        
+        return Response.ok(jsonPrettyPrintString).build();
+   
+    }
 
  }
